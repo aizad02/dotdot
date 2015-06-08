@@ -2,8 +2,9 @@
  filetype off                   " required!
 
  set rtp+=~/.vim/bundle/Vundle.vim
- call vundle#begin()
-
+" set rtp+=~/.vim/bundle/vundle/
+ "call vundle#begin()
+ call vundle#rc()
  " let Vundle manage Vundle
  " required! 
  Plugin 'gmarik/Vundle.vim'
@@ -27,6 +28,49 @@
  Plugin 'Raimondi/delimitMate'
  Plugin 'kien/ctrlp.vim'
 
+ " took from Shunan some Commented because already have
+ "Bundle 'gmarik/vundle'
+ "Bundle 'kien/ctrlp.vim'
+ "Bundle 'scrooloose/nerdtree'
+ "Bundle 'tpope/vim-rails'
+ Bundle 'tpope/vim-haml'
+ "Bundle 'tpope/vim-surround'
+ "Bundle 'tpope/vim-repeat'
+ Bundle 'rking/ag.vim'
+ Bundle 'nelstrom/vim-visual-star-search'
+ "Bundle 'tpope/vim-fugitive'
+ Bundle 'airblade/vim-gitgutter'
+ Bundle 'bling/vim-airline'
+
+let g:agprg = 'ag --nogroup --nocolor --column'
+"runtime macros/matchit.vim
+set t_Co=256
+"colorscheme babymate256
+set ai sw=2 sts=2 et
+set number
+set rnu
+set smartcase
+set backspace=indent,eol,start
+set hlsearch
+" highlight status bar for current active window
+"augroup NrHighlight
+"	autocmd!
+"	autocmd WinEnter * hi StatusLine ctermfg=3
+"	autocmd WinLeave * hi StatusLine ctermbg=240 ctermfg=12
+"augroup END
+
+highlight ExtraWhitespace ctermbg=darkred guibg=darkred
+match ExtraWhitespace /\s\+$/
+
+" vim-airline
+let g:airline_left_sep = '»'
+let g:airline_right_sep = '«'
+let g:airline#extensions#tabline#enabled = 1
+"
+set guifont=Monaco:h12
+"
+" End Copying
+ 
  " vim-scripts repos
  " Bundle 'L9'
  " Bundle 'FuzzyFinder'
@@ -63,7 +107,10 @@
  let NERDChristmasTree = 1
  let NERDTreeMinimalUI = 1
 "make use of arrow key
- map <left> <ESC>:NERDTree<RETURN>
+ map <left> <ESC>:NERDTreeToggle<CR>
+ "<RETURN>
+"map <C-n> :NERDTreeToggle<CR>
+"map <left> <ESC>:Explore<RETURN>
 
 " remap some CtrlP keys
  let g:ctrlp_map = '<leader>p'
@@ -104,3 +151,4 @@
  "
  " see :h vundle for more details or wiki for FAQ
  " NOTE: comments after Bundle command are not allowed..
+ 
