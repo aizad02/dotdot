@@ -27,6 +27,12 @@
  Plugin 'scrooloose/syntastic'
  Plugin 'Raimondi/delimitMate'
  Plugin 'kien/ctrlp.vim'
+ " for mobile development
+ Plugin 'akz92/vim-ionic2'
+ Plugin 'https://github.com/HerringtonDarkholme/yats.vim'
+
+ " for Elixir phoenix development
+ Plugin 'elixir-editors/vim-elixir'
 
  " took from Shunan some Commented because already have
  "Bundle 'gmarik/vundle'
@@ -84,6 +90,72 @@ set guifont=Monaco:h12
 
  set autoindent
  syntax on
+ 
+ "Systastic settings
+ "
+ 
+ " use jshint
+ let g:syntastic_javascript_checkers = ['jshint']
+
+ " show any linting errors immediately
+ let g:syntastic_check_on_open = 1
+ 
+ if !exists('g:syntastic_html_tidy_ignore_errors')
+   let g:syntastic_html_tidy_ignore_errors = []
+ endif
+ 
+ if !exists('g:syntastic_html_tidy_blocklevel_tags')
+     let g:syntastic_html_tidy_blocklevel_tags = []
+ endif
+ 
+ " Set up the arrays to ignore for later
+ if !exists('g:syntastic_html_tidy_ignore_errors')
+     let g:syntastic_html_tidy_ignore_errors = []
+ endif
+
+ if !exists('g:syntastic_html_tidy_blocklevel_tags')
+     let g:syntastic_html_tidy_blocklevel_tags = []
+ endif
+
+ " Try to use HTML5 Tidy for better checking?
+ let g:syntastic_html_tidy_exec = '/usr/local/bin/tidy5'
+ " AP: honestly can't remember if this helps or not
+ " installed with homebrew locally
+
+ " Ignore ionic tags in HTML syntax checking
+ " See http://stackoverflow.com/questions/30366621
+ " ignore errors about Ionic tags
+ let g:syntastic_html_tidy_ignore_errors += [
+       \ "<ion-",
+       \ "discarding unexpected </ion-"]
+
+ " Angular's attributes confuse HTML Tidy
+ let g:syntastic_html_tidy_ignore_errors += [
+       \ " proprietary attribute \"ng-"]
+
+ " Angular UI-Router attributes confuse HTML Tidy
+ let g:syntastic_html_tidy_ignore_errors += [
+       \ " proprietary attribute \"ui-sref"]
+
+ " Angular in particular often makes 'empty' blocks, so ignore
+ " this error. We might improve how we do this though.
+ " See also https://github.com/scrooloose/syntastic/wiki/HTML:---tidy
+ " specifically g:syntastic_html_tidy_empty_tags
+ let g:syntastic_html_tidy_ignore_errors += ["trimming empty "]
+
+ " Angular ignores
+ let g:syntastic_html_tidy_blocklevel_tags += [
+       \ 'ng-include',
+       \ 'ng-form'
+       \ ]
+
+ " Angular UI-router ignores
+ let g:syntastic_html_tidy_ignore_errors += [
+       \ " proprietary attribute \"ui-sref"]
+	   
+	   
+ " end of custom syntastic
+ 
  " always show status line
  set laststatus=2
  set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
@@ -151,4 +223,4 @@ set guifont=Monaco:h12
  "
  " see :h vundle for more details or wiki for FAQ
  " NOTE: comments after Bundle command are not allowed..
- 
+
